@@ -1,0 +1,14 @@
+h1 {
+    text-align:center;
+}
+
+ul.symphonies li:not(:last-child) {
+    border-bottom:1px solid black;
+    
+}
+
+ul.symphonies li {
+	color: black;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}

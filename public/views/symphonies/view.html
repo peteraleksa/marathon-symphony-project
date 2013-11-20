@@ -1,0 +1,21 @@
+<section data-ng-controller="SymphonyController" 
+		 data-ng-init="findOne()">
+	<div class="row-fluid">
+		<div class="span8 text-centered well symphonybody">
+			<div>
+				<span>{{symphony.created | date:'medium'}}</span> /
+				<span>{{symphony.user.name}}</span>
+				<h2>{{symphony.title}} 
+					<a data-ng-show="global.user._id == symphony.user._id" 
+					   href="/#!/symphonies/{{symphony._id}}/edit">edit
+					</a>
+				</h2>
+			</div>
+			<div>
+				<p>{{symphony.composer}}</p>
+			 	<p>{{symphony.year}}</p>
+			 	<p>{{symphony.runnerRange}}</p>
+			</div>
+		</div>
+	</div>
+</section>

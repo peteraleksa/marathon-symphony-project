@@ -1,0 +1,211 @@
+<section data-ng-controller="SymphonyController" >
+
+<div class="row-fluid">
+  <div class="">
+	<form data-ng-submit="create()">
+
+		<div class="row-fluid">
+    		<header>
+    			<h1 class="page-title span7 pull-left highlight">Compose Your Symphony</h1>
+    		</header>
+
+			<input type="submit" 
+				   id="composeButton" 
+				   class="btn btn-large btn-primary pull-left" 
+				   value="Compose"/>
+			<input type="button" 
+				   id="composeButton" 
+				   class="btn btn-large btn-success pull-left" 
+				   value="Random" 
+				   ng-click="randomize"/>
+		</div>
+
+		<div class="row-fluid">
+		<fieldset class="well span10">
+			<h2>Basic Information:</h2>
+
+			<div>
+	    		<label for="titleEntry" >
+	    			Title: 
+	    		</label>
+		    	<input id="titleEntry" 
+		    		   data-ng-model="title"
+		    		   required>
+		    	<span class="help-block">Enter your symphony title here.</span>
+		    </div>
+	    	
+	    	<div>	
+	    		<label for="composerEntry">Composer: </label>
+	    		<input id="composerEntry" 
+	    			   data-ng-model="composer"
+	    			   required />
+	    		<span class="help-block">Enter the name of the composer.</span>
+    		</div>
+    	</div>
+		</fieldset>
+
+		<div class="row-fluid">
+
+		<fieldset class="well span5 pull-left">
+
+			<h2>Choose Year:</h2>
+
+			<div>
+				<label for="yearEntry" >Year: </label>
+				<select id="yearEntry" 
+						data-ng-model="year" 
+						ng-options="yearOpt.value for yearOpt in yearOptions">
+				</select>
+				<span class="help-block">
+					Choose the Marathon year you would like to use for your symphony.
+					<a href="" 
+					   ng-click="toggleYearMoreHelp()" 
+					   ng-show="!yearMoreHelp"> more </a>
+					<a href="" 
+					   ng-click="toggleYearMoreHelp()" 
+					   ng-show="yearMoreHelp"> less </a>
+					<span ng-show="yearMoreHelp">
+						<br/><em>This is the year that the Marathon result data will be pulled from.</em>
+					</span>
+				</span>
+			</div>
+		</fieldset>
+
+		<fieldset class="well span5 pull-left">
+			<h2>Select Runner Range:</h2>
+			<div>
+				<select 
+					data-ng-model="rangeValueOpt" 
+					ng-options="rangeopt.value for rangeopt in rangeoptions">
+				</select>
+				<span class="help-block">
+					Select the range of runner bib numbers for your symphony. 
+					<a href="" 
+					   ng-click="toggleRunnerMoreHelp()" 
+					   ng-show="!runnerMoreHelp"> more 
+					</a>
+					<a href="" 
+					   ng-click="toggleRunnerMoreHelp()"ng-show="runnerMoreHelp"> 
+					   less 
+					</a>
+					<span ng-show="runnerMoreHelp">
+						<br/><em>Each runner represents a single note that will play as the runner crosses each selected timing location.</em>
+					</span>
+				</span>
+			</div>
+			<div ng-show="rangeValueOpt.value == 'Custom' " 
+				 ng-repeat="rangeValue in ranges">
+			  <input
+			    type="checkbox"
+			    name="runnerRange[]"
+			    value="{{rangeValue}}"
+			    ng-checked="rangeSelection.indexOf(rangeValue) > -1"
+			    ng-click="toggleSelection(rangeValue)" /> {{rangeValue}}
+			</div>
+		</fieldset>
+
+		</div>
+
+
+		<div class="row-fluid">
+		<fieldset class="well span10">
+
+    		<h2>Select Musical Style:</h2>
+    		<div>
+    			<select 
+    				data-ng-model="selectedMelodyTypes" 
+    				ng-options="melodyType.value for melodyType in melodyTypes">
+    			</select>
+    		</div>
+
+			<div ng-show="selectedMelodyTypes.value == 'Custom'">
+			  <h3>Bib ends in:</h3>
+			  <div ng-repeat="lastnum in lastnums">
+			  	{{lastnum}} = Note: 
+				  <select 
+				  	data-ng-model="selectedNote" 
+				  	ng-options="note.name for note in notes">
+				  	<option value=""> -- Choose Note -- </option>
+				  </select>
+			  </div>
+			</div>
+
+		</fieldset>
+		</div>
+
+		<div class="row-fluid">
+		<fieldset class="well span5 pull-left">
+			<h2>Select Timing Locations:</h2>
+			<div>
+				<select 
+					data-ng-model="selectedLocations" 
+					ng-options="location.value for location in locations">
+				</select>
+				<span class="help-block">
+					Select the timing locations to include in your symphony.
+					<a href="" 
+					   ng-click="toggleLocationsMoreHelp()" 
+					   ng-show="!locationsMoreHelp"> more 
+					</a>
+					<a href="" 
+					   ng-click="toggleLocationsMoreHelp()" 
+					   ng-show="locationsMoreHelp"> less 
+					</a>
+					<span ng-show="locationsMoreHelp">
+						<br/><em>Each location corresponds to an instrument that will play a note for each runner that crosses it.</em>
+					</span>
+				</span>
+			</div>
+
+			<div ng-show="selectedLocations.value == 'Custom' " 
+				ng-repeat="markerValue in markers" >
+				<input
+				  	ng-show="selectedLocations.value == 'Custom' "
+				    type="checkbox"
+				    name="markerGroup[]"
+				    value="{{markerValue}}"
+				    ng-checked="markerSelection.indexOf(markerValue) > -1"
+				    ng-click="toggleSelection(markerValue)"/> {{markerValue}}
+			</div>
+		</fieldset>
+
+		<fieldset class="well span5 pull-left">
+			<h2>Select Instruments:</h2>
+			<div>
+				<select data-ng-model="selectedInstrumentTypes" 
+					    ng-options="instrumentType.value for instrumentType in instrumentTypes">
+				</select>
+				<span class="help-block">
+					Select an instrument for each timing station.
+					<a href="" 
+					   ng-click="toggleInstrumentsMoreHelp()" 
+					   ng-show="!instrumentsMoreHelp"> more </a>
+					<a href="" 
+					   ng-click="toggleInstrumentsMoreHelp()" 
+					   ng-show="instrumentsMoreHelp"> less </a>
+					<span ng-show="instrumentsMoreHelp">
+						<br/><em>Each timing station is assigned an instrument to voice their notes in.  Default is set to piano.</em>
+					</span>
+				</span>
+    		</div>
+
+    		<div 
+    			ng-show="selectedInstrumentTypes.value == 'Custom' " 
+    			ng-repeat="marker in markerSelection">
+    			  {{marker}}
+				  <select 
+				  	data-ng-model="selectedInstrument"
+				  	ng-options="instrument.name for instrument in instruments">
+				  	<option value=""> -- Choose Instrument -- </option>
+				  </select>
+			
+			</div>
+			
+		</fieldset>
+		</div>
+
+	</form>
+  </div>
+
+</div>
+</section>

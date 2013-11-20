@@ -1,0 +1,48 @@
+<!-- Main component for a primary marketing message or call to action -->
+<section data-ng-controller="SymphonyController"
+         data-ng-init="find()">
+    <div class="row-fluid">
+      <div ng-hide="symphonies.length < 1" 
+           class="span3">
+        <h3 class="text-centered">Top Symphonies:</h2>
+          <div class="well sidebar-nav">
+            <ul class="symphonies unstyled">
+              <li data-ng-repeat="symphony in symphonies | limitTo: 5 ">
+                <span>{{symphony.created | date:'medium'}}</span>
+                <h3><a data-ng-href="#!/symphonies/{{symphony._id}}">{{symphony.title}}</a></h2>
+                <h4>by: {{symphony.composer}}</h4>
+                {{symphony.favorites}}
+              </li>
+            </ul>
+          </div>
+      </div>
+
+      <div class="span9">
+        <div class="hero-unit">
+          <div id="mainTitle">
+            <h1 id="originalTitle">Marathon MIDI</h1>
+          </div>
+          <div id="callOut">
+            <h2 class="text-center"><span class="highlight">Let's make some music!</span></h2><br/>
+            <p class="text-center">
+            <a href="#!/symphonies/compose" 
+               role="button" 
+               id="getStartedButton" 
+               class="btn btn-large btn-info">
+               Compose A Symphony &raquo;
+            </a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+  </div>
+
+</section>
+
+
+
+
+
+
+    

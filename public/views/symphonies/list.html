@@ -1,0 +1,25 @@
+<section data-ng-controller="SymphonyController" 
+		 data-ng-init="find()">
+	<div class="row-fluid">
+		<div class="well span8 offset2">
+			<ul class="symphonies unstyled">
+				<li data-ng-repeat="symphony in symphonies"
+					id="{{symphony._id}}">
+					<span>{{symphony.created | date:'medium'}}</span> /
+					<!--<span>{{article.user.name}}</span>-->
+					<h2><a data-ng-href="#!/symphonies/{{symphony._id}}">{{symphony.title}}</a></h2>
+					<div>{{symphony.composer}}</div>
+					<div>
+						<a href="" 
+						   type="button"
+						   class="btn btn-small fav-btn"
+						   ng-click="toggleFav({{symphony._id}}">
+						   Fav
+						</a>{{symphony.favorites}}
+					</div>
+				</li>
+			</ul>
+			<h1 data-ng-hide="!symphonies || symphonies.length">No symphonies yet. <br> Why don't you <a href="/#!/symphonies/compose">Compose One</a>?</h1>
+		</div>
+	</div>
+</section>
