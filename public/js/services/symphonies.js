@@ -9,6 +9,17 @@ angular.module('symphonyApp.symphonies').factory("Symphonies", ['$resource', fun
     });
 }]);
 
+angular.module('symphonyApp.symphonies').factory("Users", ['$resource', function($resource) {
+    return {
+        getId : function() {
+        	return $resource('users/me', function(result) {
+        			//resolve the promise as the data
+        			return result.data;
+        	});
+        }
+    }
+}]);
+
 /* Services */
 angular.module('symphonyApp.symphonies').factory("Years", ['$resource', function($resource) {
 	return {

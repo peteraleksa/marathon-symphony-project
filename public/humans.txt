@@ -3,7 +3,7 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+   Peter Aleksa -- Developer -- github.com/peteraleksa
 
 # THANKS
 
@@ -12,4 +12,5 @@
 # TECHNOLOGY COLOPHON
 
     HTML5, CSS3
-    jQuery, Modernizr
+    jQuery, Modernizr,
+    MEAN.io

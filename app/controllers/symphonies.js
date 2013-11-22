@@ -8,7 +8,7 @@ var mongoose = require('mongoose'),
 
 /**
  * Get available years
-  */
+*/
 
 exports.years = function(req, res, next, id) {
     Years.load(id, function(err, years) {
@@ -53,11 +53,13 @@ exports.create = function(req, res) {
 
     symphony.save(function(err) {
         if (err) {
+            console.log("exports create called - error");
             return res.send('users/signup', {
                 errors: err.errors,
                 symphony: symphony
             });
         } else {
+            console.log("exports create called - ok");
             res.jsonp(symphony);
         }
     });
@@ -77,7 +79,7 @@ exports.update = function(req, res) {
 };
 
 /**
- * Delete an symphony
+ * Delete a symphony
  */
 exports.destroy = function(req, res) {
     var symphony = req.symphony;
@@ -94,7 +96,7 @@ exports.destroy = function(req, res) {
 };
 
 /**
- * Show an symphony
+ * Show a symphony
  */
 exports.show = function(req, res) {
     res.jsonp(req.symphony);
@@ -104,7 +106,7 @@ exports.show = function(req, res) {
  * List of Symphonies
  */
 exports.all = function(req, res) {
-    Symphony.find().sort({'favorites': -1}).exec(function(err, symphonies) {
+    Symphony.find().populate('user', 'name username').exec(function(err, symphonies) {
         if (err) {
             res.render('error', {
                 status: 500
@@ -117,12 +119,15 @@ exports.all = function(req, res) {
 
 /**
  * Favorite a symphony
- * ?????
  */
-exports.toggleFav = function(req, res) {
+exports.fav = function(req, res) {
+    console.log("fav function");
+    /*
     var symphony = req.symphony;
 
     symphony.save(function(err) {
         res.jsonp(symphony);
     });
+    */
 }
+

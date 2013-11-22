@@ -9,12 +9,22 @@
 					<a data-ng-show="global.user._id == symphony.user._id" 
 					   href="/#!/symphonies/{{symphony._id}}/edit">edit
 					</a>
+					<div>
+						<a 
+						   class="btn btn-small fav-btn"
+						   ng-click="toggleFav()">
+						   &#9829 <!--heart glyph-->
+						</a>{{symphony.favorites}}
+					</div>
 				</h2>
 			</div>
 			<div>
-				<p>{{symphony.composer}}</p>
-			 	<p>{{symphony.year}}</p>
-			 	<p>{{symphony.runnerRange}}</p>
+				<p>by: {{symphony.composer}}</p>
+			 	<p>Marathon Year: {{symphony.year}}</p>
+			 	<p>Runner Range: {{symphony.runnerRange}}</p>
+			 	<p>Timing Locations: {{symphony.timingLocations}}</p>
+			 	<p>Melody: {{symphony.melody.melodyType}}</p>
+			 	<p>User: {{symphony.user.name}}</p>
 			</div>
 		</div>
 	</div>

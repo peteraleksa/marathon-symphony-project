@@ -1,22 +1,42 @@
 <section data-ng-controller="SymphonyController" 
 		 data-ng-init="find()">
 	<div class="row-fluid">
+		<header class="span5" data-ng-show="symphonies || symphonies.length > 0"><h1>Listen to a symphony:</h1></header>
+		<div class="btn-group span10 float-left">
+			<button type="button" 
+                    class="btn btn-primary" 
+                    ng-model="mainModel.mine"
+                    ng-click="toggleMain()" 
+                    btn-radio="'Mine'"
+                    selected>
+                    Mine
+            </button>
+            <button type="button" 
+                    class="btn btn-primary" 
+                    ng-model="mainModel.top"
+                    ng-click="toggleMain()" 
+                    btn-radio="'Top'">
+                    Favorite
+            </button>
+            <button type="button" 
+                    class="btn btn-primary" 
+                    ng-model="mainModel.newest" 
+                    ng-click="toggleMain()"
+                    btn-radio="'Newest'">
+                    Newest
+            </button>
+        </div>
+		<div class="span5 float-left" data-ng-show="symphonies || symphonies.length > 0">
+			Search by Title: <input ng-model="query" value=""></input>
+		</div>
 		<div class="well span8 offset2">
 			<ul class="symphonies unstyled">
-				<li data-ng-repeat="symphony in symphonies"
+				<li data-ng-repeat="symphony in symphonies | orderBy:mainSort"
 					id="{{symphony._id}}">
 					<span>{{symphony.created | date:'medium'}}</span> /
-					<!--<span>{{article.user.name}}</span>-->
+					{{symphony.user.name}}
 					<h2><a data-ng-href="#!/symphonies/{{symphony._id}}">{{symphony.title}}</a></h2>
 					<div>{{symphony.composer}}</div>
-					<div>
-						<a href="" 
-						   type="button"
-						   class="btn btn-small fav-btn"
-						   ng-click="toggleFav({{symphony._id}}">
-						   Fav
-						</a>{{symphony.favorites}}
-					</div>
 				</li>
 			</ul>
 			<h1 data-ng-hide="!symphonies || symphonies.length">No symphonies yet. <br> Why don't you <a href="/#!/symphonies/compose">Compose One</a>?</h1>

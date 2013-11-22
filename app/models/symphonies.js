@@ -78,11 +78,35 @@ SymphonySchema.statics = {
     load: function(id, cb) {
         this.findOne({
             _id: id
-        }).exec(cb);
+        }).populate('user', 'name username').exec(cb);
     }
 };
 
 mongoose.model('Symphony', SymphonySchema);
+
+/**
+ * Composition Schema
+ */
+ /*
+var CompositionSchema = new Schema({
+    symphony: {
+        Schema.ObjectId,
+        ref: 'Symphony'
+    },
+    speed: Number,
+    midi: "midi"
+});
+
+var CompositionSchema.statics = {
+    load: function(id, cb) {
+        this.findOne({
+            _id: id
+        }).exec(cb);
+    }
+};
+
+
+mongoose.model('Composition', CompositionSchema);
 
 /**
  * Years Schema

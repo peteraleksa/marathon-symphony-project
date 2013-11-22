@@ -63,11 +63,14 @@ module.exports = function(app, passport, auth) {
     //Symphony Routes
     var symphonies = require('../app/controllers/symphonies');
     app.get('/symphonies', symphonies.all);
+    // authenticated users only can create
     //app.post('/symphonies', auth.requiresLogin, symphonies.create);
+    // update to include composition creation
     app.post('/symphonies', symphonies.create);
     app.get('/symphonies/:symphonyId', symphonies.show);
-    /*app.put('/symphonies/:symphonyId', auth.requiresLogin, auth.symphony.hasAuthorization, symphonies.update);
-    app.del('/symphonies/:symphonyId', auth.requiresLogin, auth.symphony.hasAuthorization, symphonies.destroy);*/
+    app.put('/symphonies/:symphonyId', symphonies.update);
+    app.put('/fav/:symphonyId/:userId', symphonies.fav);
+    //app.del('/symphonies/:symphonyId', auth.requiresLogin, auth.symphony.hasAuthorization, symphonies.destroy);*/
 
     //Finish with setting up the symphonyId param
     app.param('symphonyId', symphonies.symphony);

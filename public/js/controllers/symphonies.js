@@ -1,4 +1,4 @@
-angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$scope', '$routeParams', '$location', 'Global', 'Symphonies', 'Years', function ($scope, $routeParams, $location, Global, Symphonies, Years) {
+angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$scope', '$filter', '$routeParams', '$location', 'Global', 'Symphonies', 'Years', 'Users', function ($scope, $filter, $routeParams, $location, Global, Symphonies, Years, Users) {
     $scope.global = Global;
 
     $scope.getYears = function() {
@@ -14,23 +14,27 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
                 year: this.year.value,
                 runnerRange: this.runnerRange,
                 timingLocations: {
-                    locations: ''
+                    locations: this.markerSelection
                 },
                 melody: {
-                    melodyType: 'Melodic',
+                    melodyType: this.selectedMelodyTypes,
                     notes: []
-                }
-
+                },
+                user: this.user
             }
         );
+
         symphony.$save(function(response) {
+            console.log(response);
             $location.path("symphonies/" + response._id);
         });
+
 
         this.title = "";
         this.content = "";
         this.year = "";
         this.runnerRange = "";
+
     };
 
     $scope.remove = function(symphony) {
@@ -69,37 +73,60 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
         });
     };
 
+    // this isnt right
+    // need to move increment to back end
+    $scope.toggleFav = function() {
+        console.log("toggle called");
+        var symphony = Symphonies.get({
+            symphonyId: $routeParams.symphonyId,
+            userId: $routeParams.userId
+            }, function(symphony) {
+                $scope.symphony = symphony;
+                $scope.symphony.favorites = symphony.favorites + 1;
+                $scope.symphony.$update(function() {
+                console.log("favorited");
+            });
+        });
+        
+    };
 
-    // Help messages
-    // These are the variables and functions for toggling the extra help brought by clicking the ?
-    //
+    /*
+     * search
+     */
 
-    // for year selection
+     $scope.query = '';
+
+    /* 
+    * Help messages
+    *
+    * These are the variables and functions 
+    * for toggling the extra help
+    */
+
+    // Selects
     $scope.yearMoreHelp = false;
+    $scope.runnerMoreHelp = false;
+    $scope.locationsMoreHelp = false;
+    $scope.instrumentsMoreHelp = false;
+
+    // Toggle functions
     $scope.toggleYearMoreHelp = function toggleYearMoreHelp() {
       $scope.yearMoreHelp = !($scope.yearMoreHelp);
     };
-
-    // for runner range select section
-    $scope.runnerMoreHelp = false;
     $scope.toggleRunnerMoreHelp = function toggleRunnerMoreHelp() {
       $scope.runnerMoreHelp = !($scope.runnerMoreHelp);
     };
-
-    // for timing location select section
-    $scope.locationsMoreHelp = false;
     $scope.toggleLocationsMoreHelp = function toggleLocationsMoreHelp() {
       $scope.locationsMoreHelp = !($scope.locationsMoreHelp);
     };
-
-    // for instrument assign section
-    $scope.instrumentsMoreHelp = false;
     $scope.toggleInstrumentsMoreHelp = function toggleInstrumentsMoreHelp() {
       $scope.instrumentsMoreHelp = !($scope.instrumentsMoreHelp);
     };
 
-    // Runner Range Select part
 
+    /*
+     * Runner Range Select part
+     */
 
     //Year Select
     $scope.yearOptions = [ {"value":"2013"}, {"value":"2011"}, {"value":"2010"}];
@@ -116,6 +143,7 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
 
     // toggle selection for a given range
     $scope.toggleSelection = function toggleRangeSelection(rangeValue) {
+        console.log("selection toggled");
       var idx = $scope.runnerRange.indexOf(rangeValue);
       // is currently selected
       if (idx > -1) {
@@ -150,6 +178,9 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
       }
     };
 
+    // Speed Select
+    $scope.speed = 100;
+
     // Instrument High Level Select
     $scope.instrumentTypes = [ {"value":"Default", "id": 1 }, {"value":"Custom", "id": 0} ];
     $scope.selectedInstrumentTypes = $scope.instrumentTypes[$scope.instrumentTypes.length - 2];
@@ -166,6 +197,52 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
     $scope.lastnums = [0,1,2,3,4,5,6,7,8,9];
     $scope.notes = [ {"name":"A", "id": 0}, {"name":"A#", "id":1}, {"name":"B", "id":2}, {"name":"C", "id":3}, {"name":"C#", "id":4}, {"name":"D", "id":5}, {"name":"D#", "id":6}, {"name":"E", "id":7}, {"name":"F", "id":8}, {"name":"F#", "id":9}, {"name":"G", "id":10}, {"name":"G#", "id":11}];
     $scope.selectedNote = $scope.notes[3];
+
+
+    // List stuff
+
+    $scope.mainModel = 'Mine';
+    $scope.mainFilter = '';
+    $scope.mainSort = '-created';
+
+    // this isnt right
+    // need to move increment to back end
+    $scope.toggleFav = function() {
+        console.log("toggle called");
+        var symphony = Symphonies.get({
+            symphonyId: $routeParams.symphonyId,
+            userId: $routeParams.userId
+            }, function(symphony) {
+                $scope.symphony = symphony;
+                $scope.symphony.favorites = symphony.favorites + 1;
+                $scope.symphony.$update(function() {
+                console.log("favorited");
+            });
+        });
+        
+    };
+
+    $scope.toggleMain = function() {
+        console.log("toggleMain called");
+        var userId = Users.getId();
+            if($scope.mainModel != 'Mine') {
+                $scope.mainFilter = "{'user': " + userId + "}";
+                $scope.mainSort = '-created';
+                $scope.mainModel = 'Mine';
+            }
+            else if($scope.mainModel != 'Newest') {
+                $scope.mainFilter = '';
+                $scope.mainSort = '-created';
+                $scope.mainModel = 'Newest';
+            }
+
+            else if($scope.mainModel != 'Top') {
+                $scope.mainFilter = '';
+                $scope.mainSort = '-favorites';
+                $scope.mainModel = 'Top';
+            }
+
+    };
 
 
 }]);
