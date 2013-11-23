@@ -1,9 +1,12 @@
 <section data-ng-controller="SymphonyController" 
 		 data-ng-init="find()">
-	<div class="row-fluid">
-		<header class="span5" data-ng-show="symphonies || symphonies.length > 0"><h1>Listen to a symphony:</h1></header>
-		<div class="btn-group span10 float-left">
-			<button type="button" 
+<div class="container-fluid">
+    <div class="row-fluid">
+    	<header class="span5" data-ng-show="symphonies || symphonies.length > 0"><h1>Listen to a symphony:</h1></header>
+    </div>
+    <div clas="row-fluid">
+    	<div class="btn-group span10 pull-left">
+    		<button type="button" 
                     class="btn btn-primary" 
                     ng-model="mainModel.mine"
                     ng-click="toggleMain()" 
@@ -26,20 +29,21 @@
                     Newest
             </button>
         </div>
-		<div class="span5 float-left" data-ng-show="symphonies || symphonies.length > 0">
-			Search by Title: <input ng-model="query" value=""></input>
-		</div>
-		<div class="well span8 offset2">
-			<ul class="symphonies unstyled">
-				<li data-ng-repeat="symphony in symphonies | orderBy:mainSort"
-					id="{{symphony._id}}">
-					<span>{{symphony.created | date:'medium'}}</span> /
-					{{symphony.user.name}}
-					<h2><a data-ng-href="#!/symphonies/{{symphony._id}}">{{symphony.title}}</a></h2>
-					<div>{{symphony.composer}}</div>
-				</li>
-			</ul>
-			<h1 data-ng-hide="!symphonies || symphonies.length">No symphonies yet. <br> Why don't you <a href="/#!/symphonies/compose">Compose One</a>?</h1>
-		</div>
-	</div>
+    	<div class="span5 pull-left" data-ng-show="symphonies || symphonies.length > 0">
+    		Search by Title: <input ng-model="query" value=""></input>
+    	</div>
+    	<div class="well span8 offset2">
+    		<ul class="symphonies unstyled">
+    			<li data-ng-repeat="symphony in symphonies | filter:{title:query} | orderBy:mainSort"
+    				id="{{symphony._id}}">
+    				<span>{{symphony.created | date:'medium'}}</span> /
+    				{{symphony.user.name}}
+    				<h2><a data-ng-href="#!/symphonies/{{symphony._id}}">{{symphony.title}}</a></h2>
+    				<div>{{symphony.composer}}</div>
+    			</li>
+    		</ul>
+    		<h1 data-ng-hide="!symphonies || symphonies.length">No symphonies yet. <br> Why don't you <a href="/#!/symphonies/compose">Compose One</a>?</h1>
+    	</div>
+    </div>
+</div>
 </section>
