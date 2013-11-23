@@ -5,27 +5,27 @@
     	<header class="span5" data-ng-show="symphonies || symphonies.length > 0"><h1>Listen to a symphony:</h1></header>
     </div>
     <div clas="row-fluid">
-    	<div class="btn-group span10 pull-left">
-    		<button type="button" 
+
+        <button type="button" 
                     class="btn btn-primary" 
-                    ng-model="mainModel.mine"
-                    ng-click="toggleMain()" 
-                    btn-radio="'Mine'"
+                    ng-model="listFilter"
+                    btn-checkbox 
+                    btn-checkbox-true="1" 
+                    btn-checkbox-false="0"
                     selected>
                     Mine
-            </button>
+        </button>
+    	<div class="btn-group span10 pull-left">
             <button type="button" 
                     class="btn btn-primary" 
-                    ng-model="mainModel.top"
-                    ng-click="toggleMain()" 
-                    btn-radio="'Top'">
+                    ng-model="listSort"
+                    btn-radio="'-favorites'">
                     Favorite
             </button>
             <button type="button" 
                     class="btn btn-primary" 
-                    ng-model="mainModel.newest" 
-                    ng-click="toggleMain()"
-                    btn-radio="'Newest'">
+                    ng-model="listSort" 
+                    btn-radio="'-created'">
                     Newest
             </button>
         </div>
@@ -34,7 +34,7 @@
     	</div>
     	<div class="well span8 offset2">
     		<ul class="symphonies unstyled">
-    			<li data-ng-repeat="symphony in symphonies | filter:{title:query} | orderBy:mainSort"
+    			<li data-ng-repeat="symphony in symphonies | filter:{title:query} | orderBy:listSort"
     				id="{{symphony._id}}">
     				<span>{{symphony.created | date:'medium'}}</span> /
     				{{symphony.user.name}}

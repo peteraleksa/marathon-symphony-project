@@ -201,9 +201,8 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
 
     // List stuff
 
-    $scope.mainModel = 'Mine';
-    $scope.mainFilter = '';
-    $scope.mainSort = '-created';
+    $scope.listFilter = 1;
+    $scope.listSort = '-created';
 
     // this isnt right
     // need to move increment to back end
@@ -221,28 +220,5 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
         });
         
     };
-
-    $scope.toggleMain = function() {
-        console.log("toggleMain called");
-        var userId = Users.getId();
-            if($scope.mainModel != 'Mine') {
-                $scope.mainFilter = "{'user': " + userId + "}";
-                $scope.mainSort = '-created';
-                $scope.mainModel = 'Mine';
-            }
-            else if($scope.mainModel != 'Newest') {
-                $scope.mainFilter = '';
-                $scope.mainSort = '-created';
-                $scope.mainModel = 'Newest';
-            }
-
-            else if($scope.mainModel != 'Top') {
-                $scope.mainFilter = '';
-                $scope.mainSort = '-favorites';
-                $scope.mainModel = 'Top';
-            }
-
-    };
-
 
 }]);
