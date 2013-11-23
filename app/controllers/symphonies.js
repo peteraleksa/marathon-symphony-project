@@ -63,6 +63,7 @@ exports.create = function(req, res) {
             res.jsonp(symphony);
         }
     });
+    
 };
 
 /**
@@ -129,5 +130,5 @@ exports.fav = function(req, res) {
         res.jsonp(symphony);
     });
     */
-}
+};
 

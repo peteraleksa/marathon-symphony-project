@@ -6,14 +6,15 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 /**
- * Symphony Schema
+ * Composition Schema
  */
  var CompositionSchema = new Schema({
 	symphony: {
 		type: Schema.ObjectId,
 		ref: 'Symphony'
 	},
-	speed: 100
+	speed: Number,
+	midi: String
  });
 
  mongoose.model('Composition', CompositionSchema);
