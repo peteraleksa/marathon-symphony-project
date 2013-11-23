@@ -5,18 +5,17 @@
       <div ng-hide="symphonies.length < 1">
         <h2 class="text-centered">Top Symphonies:</h2>
           <div class="btn-group span10 float-left">
+            <pre>{{sideSort}}</pre>
             <button type="button" 
                     class="btn btn-primary" 
-                    ng-model="sidebarModel"
-                    btn-radio="'Top'"
-                    ng-click="sidebarModel.top.selected = true; sidebarModel.newest.selected = false">
+                    ng-model="sideSort"
+                    btn-radio="'-favorites'">
                     Favorite
             </button>
             <button type="button" 
                     class="btn btn-primary" 
-                    ng-model="sidebarModel" 
-                    btn-radio="'Newest'"
-                    ng-click="si">
+                    ng-model="sideSort"
+                    btn-radio="'-created'">
                     Newest
             </button>
           </div>
@@ -25,7 +24,7 @@
     <div class="row-fluid">
       <div class="well sidebar-nav span3 float-left">
         <ul class="symphonies unstyled">
-          <li data-ng-repeat="symphony in symphonies | orderBy:sideSlct.selected.sort">
+          <li data-ng-repeat="symphony in symphonies | orderBy:sideSort">
             <span>{{symphony.created | date:'medium'}}</span>
             <h3><a data-ng-href="#!/symphonies/{{symphony._id}}">{{symphony.title}}</a></h2>
             <h4>by: {{symphony.composer}}</h4>
