@@ -13,6 +13,14 @@
             <a href="#!/{{item.link}}">{{item.title}}</a>
         
         </li>
+        <li data-ng-repeat="item in authmenu" 
+            data-ng-show="global.authenticated" 
+            ui-route="/{{item.link}}" 
+            ng-class="{active: $uiRoute}">
+            
+            <a href="#!/{{item.link}}">{{item.title}}</a>
+        
+        </li>
     </ul>
     <ul class="nav pull-right" 
         data-ng-hide="global.authenticated">

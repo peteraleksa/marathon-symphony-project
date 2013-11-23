@@ -201,7 +201,6 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
 
     // List stuff
 
-    $scope.listFilter = 1;
     $scope.listSort = '-created';
 
     // this isnt right

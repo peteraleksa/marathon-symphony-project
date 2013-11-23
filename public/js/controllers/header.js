@@ -3,15 +3,24 @@ angular.module('symphonyApp.system').controller('HeaderController', ['$scope', '
 
     $scope.menu = [{
         "title": "Listen",
-        "link": "symphonies/list"
+        "link": "symphonies/list",
+        "show": "global"
     }, 
     {
         "title": "Compose",
-        "link": "symphonies/compose"
+        "link": "symphonies/compose",
+        "show": "global"
     },
     {
     	"title": "About",
-    	"link": "about"
+    	"link": "about",
+        "show": "global"
+    }];
+
+    $scope.authmenu = [{
+        "title": "My Symphonies",
+        "link": "symphonies/mine",
+        "show": "global.authenticated"
     }];
     
     $scope.isCollapsed = false;
