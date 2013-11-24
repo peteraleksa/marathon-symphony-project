@@ -1,5 +1,6 @@
 angular.module('symphonyApp.system').controller('HeaderController', ['$scope', 'Global', function ($scope, Global) {
     $scope.global = Global;
+    $scope.myListLink = "users/" + $scope.global.user._id + "/symphonies";
 
     $scope.menu = [{
         "title": "Listen",
@@ -15,11 +16,10 @@ angular.module('symphonyApp.system').controller('HeaderController', ['$scope', '
     	"title": "About",
     	"link": "about",
         "show": "global"
-    }];
-
-    $scope.authmenu = [{
+    },
+    {
         "title": "My Symphonies",
-        "link": "user/:userId/symphonies",
+        "link": $scope.myListLink,
         "show": "global.authenticated"
     }];
     

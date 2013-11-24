@@ -9,16 +9,7 @@
             data-ng-show="global" 
             ui-route="/{{item.link}}" 
             ng-class="{active: $uiRoute}">
-            
             <a href="#!/{{item.link}}">{{item.title}}</a>
-        
-        </li>
-        <li data-ng-repeat="item in authmenu" 
-            data-ng-show="global.authenticated" 
-            ui-route="/{{item.link}}" 
-            ng-class="{active: $uiRoute}">
-            
-            <a href="#!/users/{{global.user._id}}/symphonies">{{item.title}}</a>
         
         </li>
     </ul>
