@@ -23,7 +23,7 @@
     <div class="row-fluid">
       <div class="well sidebar-nav span3 float-left">
         <ul class="symphonies unstyled">
-          <li data-ng-repeat="symphony in symphonies | orderBy:sideSort">
+          <li data-ng-repeat="symphony in symphonies | orderBy:sideSort | limitTo:10">
             <span>{{symphony.created | date:'medium'}}</span>
             <h3><a data-ng-href="#!/symphonies/{{symphony._id}}">{{symphony.title}}</a></h2>
             <h4>by: {{symphony.composer}}</h4>

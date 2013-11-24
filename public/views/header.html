@@ -3,14 +3,25 @@
     <ul class="nav">
         <li>
             <a class="brand" 
-            href="/">Marathon MIDI</a>
+               href="/" 
+               >
+               Marathon MIDI
+            </a>
         </li>
         <li data-ng-repeat="item in menu" 
-            data-ng-show="global" 
             ui-route="/{{item.link}}" 
             ng-class="{active: $uiRoute}">
-            <a href="#!/{{item.link}}">{{item.title}}</a>
-        
+            <a href="#!/{{item.link}}">
+               {{item.title}}
+            </a>
+        </li>
+        <li data-ng-repeat="authitem in authmenu"
+            data-ng-hide="!global.authenticated"
+            ui-route="/{{authitem.link}}" 
+            ng-class="{active: $uiRoute}">
+            <a href="#!/{{authitem.link}}">
+               {{authitem.title}}
+            </a>
         </li>
     </ul>
     <ul class="nav pull-right" 
