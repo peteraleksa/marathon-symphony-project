@@ -31,7 +31,6 @@ exports.years = function(req, res, next, id) {
     });
  };
 
-
 /**
  * Find symphony by id
  */
@@ -114,6 +113,19 @@ exports.all = function(req, res) {
             });
         } else {
             res.jsonp(symphonies);
+        }
+    });
+};
+
+exports.mine = function(req, res) {
+
+    Symphony.find({user: req.user}).populate('user', 'name username').exec(function(err, symphonies) {
+        if (err) {
+            res.render('error', {
+                status: 500
+            });
+        } else {
+           res.jsonp(symphonies);
         }
     });
 };

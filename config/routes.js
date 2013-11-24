@@ -1,6 +1,10 @@
 module.exports = function(app, passport, auth) {
     //User Routes
     var users = require('../app/controllers/users');
+    var symphonies = require('../app/controllers/symphonies');
+    var compositions = require('../app/controllers/compose');
+
+
     app.get('/signin', users.signin);
     app.get('/signup', users.signup);
     app.get('/signout', users.signout);
@@ -61,8 +65,6 @@ module.exports = function(app, passport, auth) {
     app.param('userId', users.user);
 
     //Symphony Routes
-    var symphonies = require('../app/controllers/symphonies');
-    var compositions = require('../app/controllers/compose');
     
     app.get('/symphonies', symphonies.all);
     // authenticated users only can create
@@ -73,6 +75,9 @@ module.exports = function(app, passport, auth) {
     app.put('/symphonies/:symphonyId', symphonies.update);
     app.put('/fav/:symphonyId/:userId', symphonies.fav);
     //app.del('/symphonies/:symphonyId', auth.requiresLogin, auth.symphony.hasAuthorization, symphonies.destroy);*/
+
+    // get users own symphonies
+    app.get('/users/:userId/symphonies', symphonies.mine);
 
     //Finish with setting up the symphonyId param
     app.param('symphonyId', symphonies.symphony);

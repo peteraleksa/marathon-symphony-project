@@ -1,4 +1,4 @@
-angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$scope', '$filter', '$routeParams', '$location', 'Global', 'Symphonies', 'Years', 'Users', function ($scope, $filter, $routeParams, $location, Global, Symphonies, Years, Users) {
+angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$scope', '$filter', '$routeParams', '$location', 'Global', 'Symphonies', 'Years', 'Users', 'MySymphonies', function ($scope, $filter, $routeParams, $location, Global, Symphonies, Years, Users, MySymphonies) {
     $scope.global = Global;
 
     $scope.getYears = function() {
@@ -70,6 +70,16 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
             symphonyId: $routeParams.symphonyId
         }, function(symphony) {
             $scope.symphony = symphony;
+        });
+    };
+
+    $scope.findMine = function() {
+        console.log("findMine called");
+        console.log($routeParams.userId);
+        MySymphonies.query({
+            userId: $routeParams.userId
+        }, function(symphonies) {
+            $scope.symphonies = symphonies;
         });
     };
 
@@ -198,9 +208,7 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
     $scope.notes = [ {"name":"A", "id": 0}, {"name":"A#", "id":1}, {"name":"B", "id":2}, {"name":"C", "id":3}, {"name":"C#", "id":4}, {"name":"D", "id":5}, {"name":"D#", "id":6}, {"name":"E", "id":7}, {"name":"F", "id":8}, {"name":"F#", "id":9}, {"name":"G", "id":10}, {"name":"G#", "id":11}];
     $scope.selectedNote = $scope.notes[3];
 
-
-    // List stuff
-
+    // Sorting of the symphonies list
     $scope.listSort = '-created';
 
     // this isnt right

@@ -2,7 +2,8 @@
 		 data-ng-init="find()">
 <div class="container-fluid">
     <div class="row-fluid">
-    	<header class="span5" data-ng-show="symphonies || symphonies.length > 0"><h1>Listen to a symphony:</h1></header>
+    	<header class="span5" 
+                data-ng-show="symphonies || symphonies.length > 0"><h1>Listen to a symphony:</h1></header>
     </div>
     <div clas="row-fluid">
     	<div class="btn-group span10 pull-left">
@@ -24,7 +25,8 @@
     	</div>
     	<div class="well span8 offset2">
     		<ul class="symphonies unstyled">
-    			<li data-ng-repeat="symphony in symphonies | filter:{title:query} | orderBy:listSort"
+    			<li data-ng-repeat=
+                        "symphony in symphonies | filter:{title:query} | orderBy:listSort"
     				id="{{symphony._id}}">
     				<span>{{symphony.created | date:'medium'}}</span> /
     				{{symphony.user.name}}

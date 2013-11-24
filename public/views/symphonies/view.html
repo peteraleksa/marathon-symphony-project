@@ -5,18 +5,22 @@
 			<div>
 				<span>{{symphony.created | date:'medium'}}</span> /
 				<span>{{symphony.user.name}}</span>
-				<h2>{{symphony.title}} 
+				<h2>{{symphony.title}}</h2>
 					<a data-ng-show="global.user._id == symphony.user._id" 
 					   href="/#!/symphonies/{{symphony._id}}/edit">edit
 					</a>
 					<div>
-						<a 
-						   class="btn btn-small fav-btn"
-						   ng-click="toggleFav()">
-						   &#9829 <!--heart glyph-->
-						</a>{{symphony.favorites}}
+						<button 
+							ng-show="global.authenticated"
+							type="button" 
+							class="btn btn-primary" 
+							ng-model="favorited" 
+							btn-checkbox 
+							btn-checkbox-true="1" 
+							btn-checkbox-false="0">
+							&#9829 <!--heart glyph-->
+						</button> {{symphony.favorites}} Favorites
 					</div>
-				</h2>
 			</div>
 			<div>
 				<p>by: {{symphony.composer}}</p>

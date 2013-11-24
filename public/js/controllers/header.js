@@ -19,7 +19,7 @@ angular.module('symphonyApp.system').controller('HeaderController', ['$scope', '
 
     $scope.authmenu = [{
         "title": "My Symphonies",
-        "link": "symphonies/mine",
+        "link": "user/:userId/symphonies",
         "show": "global.authenticated"
     }];
     

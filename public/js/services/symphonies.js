@@ -9,12 +9,18 @@ angular.module('symphonyApp.symphonies').factory("Symphonies", ['$resource', fun
     });
 }]);
 
+angular.module('symphonyApp.symphonies').factory("MySymphonies", ['$resource', function($resource) {
+    return $resource('users/:userId/symphonies', {
+        userId: '@_id'
+    });
+}]);
+
 angular.module('symphonyApp.symphonies').factory("Users", ['$resource', function($resource) {
     return {
         getId : function() {
         	return $resource('users/me', function(result) {
-        			//resolve the promise as the data
-        			return result.data;
+        		//resolve the promise as the data
+        		return result.data;
         	});
         }
     }
