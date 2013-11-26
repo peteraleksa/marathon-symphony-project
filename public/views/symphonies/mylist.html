@@ -40,16 +40,7 @@
     				<h2><a data-ng-href="#!/symphonies/{{symphony._id}}">{{symphony.title}}</a></h2>
     				<div>{{symphony.composer}}</div>
                     <div>
-                        <button 
-                            data-ng-show="!symphonies || symphonies.length || global.authenticated"
-                            type="button" 
-                            class="btn btn-primary" 
-                            ng-model="favorited" 
-                            btn-checkbox 
-                            btn-checkbox-true="1" 
-                            btn-checkbox-false="0">
-                            &#9829 <!--heart glyph-->
-                        </button> {{symphony.favorites}} Favorites
+                        {{symphony.favorites}} Favorites
                     </div>
     			</li>
     		</ul>
