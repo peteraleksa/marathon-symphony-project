@@ -43,7 +43,7 @@ var SymphonySchema = new Schema({
     melody: {
         melodyType: {
             type: String,
-            default: 'Melodic'
+            default: 'Harmonic'
         },
         notes: {
             type: [String],
