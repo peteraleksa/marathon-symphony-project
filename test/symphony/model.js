@@ -73,6 +73,19 @@ describe('<Unit Test>', function() {
             });
         });
 
+/* 
+ * hmmm, is this even necessary??
+ *
+        describe('Method Statics Load', function() {
+            it('should be able to load without problems', function(done) {
+                return Symphony.statics.load(symphony._id, function(err) {
+                    should.not.exist(err);
+                    done();
+                });
+            });
+        });
+*/
+
         afterEach(function(done) {
             Symphony.remove({});
             User.remove({});
