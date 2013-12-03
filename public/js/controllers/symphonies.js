@@ -1,5 +1,6 @@
 angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$scope', '$filter', '$routeParams', '$location', 'Global', 'Symphonies', 'Years', 'Users', 'MySymphonies', function ($scope, $filter, $routeParams, $location, Global, Symphonies, Years, Users, MySymphonies) {
     $scope.global = Global;
+    $scope.query = '';  // search query
 
     $scope.getYears = function() {
         var years = $scope.years;
@@ -69,7 +70,18 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
             symphonyId: $routeParams.symphonyId
         }, function(symphony) {
             $scope.symphony = symphony;
-            $scope.favorited = false;
+            console.log($scope.symphony.favorites);
+            for(i in $scope.symphony.favorites.users) {
+                console.log($scope.symphony.favorites.users[i]._id);
+                console.log($scope.global.user._id);
+                if($scope.symphony.favorites.users[i]._id == $scope.global.user._id
+                    || $scope.symphony.favorites.users[i]._id == $scope.global.user._id) {    
+                    $scope.favorited = true;
+                    break;
+                } else {
+                    $scope.favorited = false;
+                }
+            }
         });
     };
 
@@ -87,26 +99,27 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
     // need to move increment to back end
     $scope.toggleFav = function() {
         console.log("toggle fav called");
+        console.log($scope.favorited);
         var symphony = $scope.symphony;
         if (!$scope.favorited) {
-            $scope.favorited;
-            symphony.favorites.num++;
+            $scope.favorited = true;
             symphony.favorites.users.push($scope.global.user._id);
+            symphony.favorites.num = symphony.favorites.users.length;
         } else {
-            $scope.favorited;
-            symphony.favorites.num--;
-            symphony.favorites.users.pop(this.user);
+            $scope.favorited = false;
+            for (var i in symphony.favorites.users) {
+                if (symphony.favorites.users[i]._id == $scope.global.user._id
+                    || symphony.favorites.users[i] == $scope.global.user._id) {
+                        $scope.symphony.favorites.users.splice(i, 1);
+                        symphony.favorites.num = symphony.favorites.users.length;
+                        break;  
+                }
+            }
         }
         symphony.$update(function() {
             $location.path('symphonies/' + symphony._id);
         });
     };
-
-    /*
-     * search
-     */
-
-     $scope.query = '';
 
     /* 
     * Help messages
@@ -212,23 +225,5 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
 
     // Sorting of the symphonies list
     $scope.listSort = '-created';
-/*
-    // this isnt right
-    // need to move increment to back end
-    $scope.toggleFav = function() {
-        console.log("toggle called");
-        var symphony = Symphonies.get({
-            symphonyId: $routeParams.symphonyId,
-            userId: $routeParams.userId
-            }, function(symphony) {
-                $scope.symphony = symphony;
-                $scope.symphony.favorites = symphony.favorites + 1;
-                $scope.symphony.$update(function() {
-                console.log("favorited");
-            });
-        });
-        
-    };
-*/
 
 }]);
