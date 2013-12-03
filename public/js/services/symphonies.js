@@ -1,12 +1,20 @@
 //Articles service used for articles REST endpoint
 angular.module('symphonyApp.symphonies').factory("Symphonies", ['$resource', function($resource) {
-    return $resource('symphonies/:symphonyId', {
-        symphonyId: '@_id'
-    }, {
-        update: {
-            method: 'PUT'
+    var service = $resource('symphonies/:symphonyId', {
+            symphonyId: '@_id'
+        }, {
+            update: {
+                method: 'PUT'
+            }
+        }, {
+            favorite: {
+                method: 'POST'
+            }
         }
-    });
+    );
+
+    return service;
+
 }]);
 
 angular.module('symphonyApp.symphonies').factory("MySymphonies", ['$resource', function($resource) {

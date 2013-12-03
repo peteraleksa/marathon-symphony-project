@@ -29,7 +29,6 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
             $location.path("symphonies/" + response._id);
         });
 
-
         this.title = "";
         this.content = "";
         this.year = "";
@@ -70,6 +69,7 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
             symphonyId: $routeParams.symphonyId
         }, function(symphony) {
             $scope.symphony = symphony;
+            $scope.favorited = false;
         });
     };
 
@@ -86,18 +86,20 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
     // this isnt right
     // need to move increment to back end
     $scope.toggleFav = function() {
-        console.log("toggle called");
-        var symphony = Symphonies.get({
-            symphonyId: $routeParams.symphonyId,
-            userId: $routeParams.userId
-            }, function(symphony) {
-                $scope.symphony = symphony;
-                $scope.symphony.favorites = symphony.favorites + 1;
-                $scope.symphony.$update(function() {
-                console.log("favorited");
-            });
+        console.log("toggle fav called");
+        var symphony = $scope.symphony;
+        if (!$scope.favorited) {
+            $scope.favorited;
+            symphony.favorites.num++;
+            symphony.favorites.users.push($scope.global.user._id);
+        } else {
+            $scope.favorited;
+            symphony.favorites.num--;
+            symphony.favorites.users.pop(this.user);
+        }
+        symphony.$update(function() {
+            $location.path('symphonies/' + symphony._id);
         });
-        
     };
 
     /*
@@ -210,7 +212,7 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
 
     // Sorting of the symphonies list
     $scope.listSort = '-created';
-
+/*
     // this isnt right
     // need to move increment to back end
     $scope.toggleFav = function() {
@@ -227,5 +229,6 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
         });
         
     };
+*/
 
 }]);

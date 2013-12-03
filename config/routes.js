@@ -72,8 +72,9 @@ module.exports = function(app, passport, auth) {
     // update to include composition creation
     app.post('/symphonies', symphonies.create);
     app.get('/symphonies/:symphonyId', symphonies.show);
+    //app.post('/symphonies/favorite/:symphonyId', symphonies.fav);
     app.put('/symphonies/:symphonyId', symphonies.update);
-    app.put('/fav/:symphonyId/:userId', symphonies.fav);
+    //app.put('/fav/:symphonyId/:userId', symphonies.fav);
     //app.del('/symphonies/:symphonyId', auth.requiresLogin, auth.symphony.hasAuthorization, symphonies.destroy);*/
 
     // get users own symphonies
@@ -90,11 +91,11 @@ module.exports = function(app, passport, auth) {
 
     //compositionId param
     app.param('compositionId', compositions.composition);
-
+/*
     //Year Routes
     var years = require('../app/controllers/symphonies');
     app.get('/years', years.getYears);
-
+*/
     //Home route
     var index = require('../app/controllers/index');
     app.get('/', index.render);

@@ -9,6 +9,8 @@
     		</header>
 
 			<input type="submit" 
+				   ng-disabled="!global.authenticated"
+				   ng-mouseover="signInToSubmit()"
 				   id="composeButton" 
 				   class="btn btn-large btn-primary pull-left" 
 				   value="Compose"/>

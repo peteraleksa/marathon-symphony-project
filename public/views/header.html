@@ -15,14 +15,6 @@
                {{item.title}}
             </a>
         </li>
-        <li data-ng-repeat="authitem in authmenu"
-            data-ng-hide="!global.authenticated"
-            ui-route="/{{authitem.link}}" 
-            ng-class="{active: $uiRoute}">
-            <a href="#!/{{authitem.link}}">
-               {{authitem.title}}
-            </a>
-        </li>
     </ul>
     <ul class="nav pull-right" 
         data-ng-hide="global.authenticated">
@@ -43,9 +35,20 @@
 				{{global.user.name}} <b class="caret"></b>
 			</a>
             <ul class="dropdown-menu">
+                <li><a href="">My Profile</a>
                 <li><a href="/signout">Signout</a>
                 </li>
             </ul>
+        </li>
+    </ul>
+    <ul class="nav pull-right">
+        <li data-ng-repeat="authitem in authmenu"
+            data-ng-hide="!global.authenticated"
+            ui-route="/{{authitem.link}}" 
+            ng-class="{active: $uiRoute}">
+            <a href="#!/{{authitem.link}}">
+               {{authitem.title}}
+            </a>
         </li>
     </ul>
 </div>

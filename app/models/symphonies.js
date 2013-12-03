@@ -55,8 +55,14 @@ var SymphonySchema = new Schema({
         ref: 'User'
     },
     favorites: {
-        type: Number,
-        default: 0
+        num: {
+            type: Number,
+            default: 0
+        },
+        users: [{
+            type: Schema.ObjectId,
+            ref: 'User'
+        }]
     },
     shares: {
         type: Number,
@@ -78,7 +84,9 @@ SymphonySchema.statics = {
     load: function(id, cb) {
         this.findOne({
             _id: id
-        }).populate('user', 'name username').exec(cb);
+        }).populate('user', 'name username')
+          .populate('favorites.users', 'name')
+          .exec(cb);
     }
 };
 

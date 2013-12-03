@@ -12,7 +12,7 @@
             <button type="button" 
                     class="btn btn-primary" 
                     ng-model="listSort"
-                    btn-radio="'-favorites'">
+                    btn-radio="'-favorites.num'">
                     Favorite
             </button>
             <button type="button" 
@@ -40,16 +40,7 @@
                     <h2><a data-ng-href="#!/symphonies/{{symphony._id}}">{{symphony.title}}</a></h2>
                     <div>{{symphony.composer}}</div>
                     <div>
-                        <button 
-                            data-ng-show="!symphonies || symphonies.length || global.authenticated"
-                            type="button" 
-                            class="btn btn-primary" 
-                            ng-model="favorited" 
-                            btn-checkbox 
-                            btn-checkbox-true="1" 
-                            btn-checkbox-false="0">
-                            &#9829 <!--heart glyph-->
-                        </button> {{symphony.favorites}} Favorites
+                        <!--heart glyph--> &#9829 {{symphony.favorites.num}}
                     </div>
                 </li>
             </ul>

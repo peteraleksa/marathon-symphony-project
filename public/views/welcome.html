@@ -8,7 +8,7 @@
             <button type="button" 
                     class="btn btn-primary" 
                     ng-model="sideSort"
-                    btn-radio="'-favorites'">
+                    btn-radio="'-favorites.num'">
                     Favorite
             </button>
             <button type="button" 
@@ -27,7 +27,7 @@
             <span>{{symphony.created | date:'medium'}}</span>
             <h3><a data-ng-href="#!/symphonies/{{symphony._id}}">{{symphony.title}}</a></h2>
             <h4>by: {{symphony.composer}}</h4>
-            {{symphony.favorites}}
+            {{symphony.favorites.num}} Favorites
           </li>
         </ul>
       </div>

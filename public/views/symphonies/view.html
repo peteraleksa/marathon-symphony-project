@@ -11,15 +11,16 @@
 					</a>
 					<div>
 						<button 
-							ng-show="global.authenticated"
-							type="button" 
-							class="btn btn-primary" 
-							ng-model="favorited" 
-							btn-checkbox 
-							btn-checkbox-true="1" 
-							btn-checkbox-false="0">
-							&#9829 <!--heart glyph-->
-						</button> {{symphony.favorites}} Favorites
+							data-ng-show="!symphonies || symphonies.length || global.authenticated"
+                            type="button" 
+                            class="btn btn-primary" 
+                            ng-model="favorited"
+                            ng-click="toggleFav()"
+                            btn-checkbox 
+                            btn-checkbox-true="1" 
+                            btn-checkbox-false="0">
+                            &#9829 <!--heart glyph-->
+						</button> {{symphony.favorites.num}} Favorites
 					</div>
 			</div>
 			<div>
@@ -29,6 +30,13 @@
 			 	<p>Timing Locations: {{symphony.timingLocations}}</p>
 			 	<p>Melody: {{symphony.melody.melodyType}}</p>
 			 	<p>User: {{symphony.user.name}}</p>
+			 	<p>Favorited By:
+			 		<ul class="userfavs unstyled">
+                		<li data-ng-repeat=
+                        	"userfavs in symphony.favorites.users">{{userfavs.name}}
+                		</li>
+                	</ul>
+                </p>
 			</div>
 		</div>
 	</div>
