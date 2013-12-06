@@ -1,4 +1,4 @@
-//Articles service used for articles REST endpoint
+//service used for symphonies REST endpoint
 angular.module('symphonyApp.symphonies').factory("Symphonies", ['$resource', function($resource) {
     var service = $resource('symphonies/:symphonyId', {
             symphonyId: '@_id'

@@ -6,9 +6,14 @@
 				<span>{{symphony.created | date:'medium'}}</span> /
 				<span>{{symphony.user.name}}</span>
 				<h2>{{symphony.title}}</h2>
-					<a data-ng-show="global.user._id == symphony.user._id" 
-					   href="/#!/symphonies/{{symphony._id}}/edit">edit
-					</a>
+					<button 
+                        type="button" 
+                        class="pull-left btn btn-success"
+                        ng-click="playSymphony()"
+                        >
+                        &#9658 <!--play glyph-->
+					</button> 
+
 					<div>
 						<button 
 							ng-disabled="!global.authenticated"
@@ -21,6 +26,7 @@
                             &#9829 <!--heart glyph-->
 						</button> {{symphony.favorites.num}} Favorites
 					</div>
+					
 			</div>
 			<div>
 				<p>by: {{symphony.composer}}</p>

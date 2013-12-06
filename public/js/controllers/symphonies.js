@@ -106,8 +106,6 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
         });
     };
 
-    // this isnt right
-    // need to move increment to back end
     $scope.toggleFav = function() {
         console.log("toggle fav called");
         console.log($scope.favorited);
@@ -141,12 +139,25 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
         });
     };
 
-    /* 
-    * Help messages
-    *
-    * These are the variables and functions 
-    * for toggling the extra help
-    */
+    $scope.playSymphony = function() {
+        console.log('play symphony called');
+        MIDI.loadPlugin({
+        soundfontUrl: "../MIDI.js/soundfont/",
+        instrument: "acoustic_grand_piano",
+        callback: function() {
+            var delay = 0; // play one note every quarter second
+            var note = 50; // the MIDI note
+            var velocity = 127; // how hard the note hits
+            // play the note
+            MIDI.setVolume(0, 127);
+            MIDI.noteOn(0, note, velocity, delay);
+            MIDI.noteOff(0, note, delay + 0.75);
+        }
+        });
+    };
+
+
+/*  Help messages and toggling */
 
     // Selects
     $scope.yearMoreHelp = false;
@@ -169,9 +180,9 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
     };
 
 
-    /*
-     * Runner Range Select part
-     */
+/* Create Form Interaction Controls  */
+
+    // Runner Range Select Part
 
     //Year Select
     $scope.yearOptions = [ {"value":"2013"}, {"value":"2011"}, {"value":"2010"}];
