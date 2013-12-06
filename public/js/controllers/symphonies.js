@@ -1,4 +1,4 @@
-angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$scope', '$filter', '$routeParams', '$location', 'Global', 'Symphonies', 'Years', 'Users', 'MySymphonies', function ($scope, $filter, $routeParams, $location, Global, Symphonies, Years, Users, MySymphonies) {
+angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$scope', '$filter', '$routeParams', '$location', 'Global', 'Symphonies', 'Years', 'Users', 'MySymphonies', 'MyFavorites', function ($scope, $filter, $routeParams, $location, Global, Symphonies, Years, Users, MySymphonies, MyFavorites) {
     $scope.global = Global;
     $scope.query = '';  // search query
 
@@ -95,27 +95,47 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
         });
     };
 
+    $scope.findMyFavs = function() {
+        console.log("findMyFavs called");
+        console.log($routeParams.userId);
+        MyFavorites.query({
+            userId: $routeParams.userId
+        },  function(symphonies) {
+            $scope.symphonies = symphonies;
+            console.log(symphonies);
+        });
+    };
+
     // this isnt right
     // need to move increment to back end
     $scope.toggleFav = function() {
         console.log("toggle fav called");
         console.log($scope.favorited);
         var symphony = $scope.symphony;
+        var user = $scope.global.user;
         if (!$scope.favorited) {
             $scope.favorited = true;
-            symphony.favorites.users.push($scope.global.user._id);
+            //user.favorites.push(symphony._id);
+            symphony.favorites.users.push(user);
             symphony.favorites.num = symphony.favorites.users.length;
         } else {
             $scope.favorited = false;
+            //for (var i in user.favorites) {
+            //    if (user.favorites[i] == symphony._id) {
+            //            user.favorites.splice(i, 1);
+            //            break;  
+            //    }
+            //}
             for (var i in symphony.favorites.users) {
-                if (symphony.favorites.users[i]._id == $scope.global.user._id
-                    || symphony.favorites.users[i] == $scope.global.user._id) {
-                        $scope.symphony.favorites.users.splice(i, 1);
+                if (symphony.favorites.users[i]._id == user._id
+                    || symphony.favorites.users[i] == user._id) {
+                        symphony.favorites.users.splice(i, 1);
                         symphony.favorites.num = symphony.favorites.users.length;
                         break;  
                 }
             }
         }
+        //user.$update();
         symphony.$update(function() {
             $location.path('symphonies/' + symphony._id);
         });

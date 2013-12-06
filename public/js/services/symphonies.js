@@ -18,7 +18,13 @@ angular.module('symphonyApp.symphonies').factory("Symphonies", ['$resource', fun
 }]);
 
 angular.module('symphonyApp.symphonies').factory("MySymphonies", ['$resource', function($resource) {
-    return $resource('users/:userId/symphonies', {
+    return $resource('symphonies/users/:userId', {
+        userId: '@_id'
+    });
+}]);
+
+angular.module('symphonyApp.symphonies').factory("MyFavorites", ['$resource', function($resource) {
+    return $resource('favorites/users/:userId', {
         userId: '@_id'
     });
 }]);

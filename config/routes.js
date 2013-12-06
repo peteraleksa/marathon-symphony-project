@@ -78,7 +78,9 @@ module.exports = function(app, passport, auth) {
     //app.del('/symphonies/:symphonyId', auth.requiresLogin, auth.symphony.hasAuthorization, symphonies.destroy);*/
 
     // get users own symphonies
-    app.get('/users/:userId/symphonies', symphonies.mine);
+    app.get('/symphonies/users/:userId', symphonies.mine);
+    app.get('/favorites/users/:userId', symphonies.favs);
+    //app.put('users/:userId', users.update);
 
     //Finish with setting up the symphonyId param
     app.param('symphonyId', symphonies.symphony);

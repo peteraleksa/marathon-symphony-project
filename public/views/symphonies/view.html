@@ -11,7 +11,8 @@
 					</a>
 					<div>
 						<button 
-							data-ng-show="!symphonies || symphonies.length || global.authenticated"
+							ng-disabled="!global.authenticated"
+				   			ng-mouseover="signInToSubmit()"
                             type="button" 
                             class="btn btn-primary" 
                             ng-model="favorited"

@@ -3,6 +3,7 @@
  */
 var mongoose = require('mongoose'),
     Symphony = mongoose.model('Symphony'),
+    User = mongoose.model('User'),
     Years = mongoose.model('Years'),
     _ = require('underscore');
 
@@ -45,8 +46,15 @@ exports.create = function(req, res) {
  */
 exports.update = function(req, res) {
     var symphony = req.symphony;
+    var user = req.user;
 
     symphony = _.extend(symphony, req.body);
+
+    user.favorites.push(symphony._id);
+
+    user.save(function(err) {
+
+    });
 
     symphony.save(function(err) {
         res.jsonp(symphony);
@@ -102,6 +110,22 @@ exports.mine = function(req, res) {
            res.jsonp(symphonies);
         }
     });
+};
+
+exports.favs = function(req, res) {
+    var user = req.user;
+
+    Symphony.find({'favorites.users': req.user}).populate('user', 'name username').exec(function(err, symphonies) {
+        if (err) {
+            res.render('error', {
+                status: 500
+            });
+        } else {
+            res.jsonp(symphonies);
+        }
+    });
+
+    
 };
 
 /**

@@ -68,6 +68,17 @@ exports.create = function(req, res) {
 };
 
 /**
+ * Update
+ */
+ //exports.update = function() {
+ //   var user = user;
+
+//    user.save(function(err) {
+//        res.jsonp(user);
+//    });
+// };
+
+/**
  *  Show profile
  */
 exports.show = function(req, res) {
@@ -101,3 +112,4 @@ exports.user = function(req, res, next, id) {
             next();
         });
 };
+

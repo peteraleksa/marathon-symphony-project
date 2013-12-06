@@ -37,8 +37,12 @@ window.app.config(['$routeProvider',
             templateUrl: 'views/symphonies/list.html',
             controller: 'SymphonyController'
           }).
-          when('/users/:userId/symphonies', {
+          when('/symphonies/users/:userId', {
             templateUrl: 'views/symphonies/mylist.html',
+            controller: 'SymphonyController'
+          }).
+          when('/favorites/users/:userId', {
+            templateUrl: 'views/symphonies/favlist.html',
             controller: 'SymphonyController'
           }).
           when('/about', {

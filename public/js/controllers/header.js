@@ -1,10 +1,10 @@
 angular.module('symphonyApp.system').controller('HeaderController', ['$scope', 'Global', function ($scope, Global) {
     $scope.global = Global;
     $scope.myListLink = $scope.global.authenticated ? 
-         "users/" + $scope.global.user._id + "/symphonies"
+         "symphonies/users/" + $scope.global.user._id
         : "";
     $scope.myFavLink = $scope.global.authenticated ? 
-         "users/" + $scope.global.user._id + "/favorites"
+         "favorites/users/" + $scope.global.user._id
         : "";
 
     $scope.menu = [{
