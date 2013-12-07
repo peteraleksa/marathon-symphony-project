@@ -1,20 +1,12 @@
 <section data-ng-controller="SymphonyController" 
-		 data-ng-init="findOne()">
-	<div class="row-fluid">
-		<div class="span8 text-centered well symphonybody">
-			<div>
+		 data-ng-init="loadSymphony()">
+	<div class="container-fluid">
+		<div class="span10 text-centered well symphonybody">
+			<div class="row-fluid">
 				<span>{{symphony.created | date:'medium'}}</span> /
 				<span>{{symphony.user.name}}</span>
+				<header>
 				<h2>{{symphony.title}}</h2>
-					<button 
-                        type="button" 
-                        class="pull-left btn btn-success"
-                        ng-click="playSymphony()"
-                        >
-                        &#9658 <!--play glyph-->
-					</button> 
-
-					<div>
 						<button 
 							ng-disabled="!global.authenticated"
 				   			ng-mouseover="signInToSubmit()"
@@ -25,9 +17,26 @@
                             >
                             &#9829 <!--heart glyph-->
 						</button> {{symphony.favorites.num}} Favorites
-					</div>
-					
+				
 			</div>
+
+			<div class="player" style="height: 42px; box-shadow: 0 -1px #000; margin-bottom: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0;">
+				<div style="margin: 0 auto; width: 160px; float: right;">
+		  			<input type="image" src="../lib/MIDI.js/images/pause.png" align="absmiddle" value="pause" ng-click="pausePlayStop()" id="pausePlayStop">
+		  			<input type="image" src="../lib/MIDI.js/images/stop.png" align="absmiddle" value="stop" ng-click="pausePlayStop(true)">
+		  			<input type="image" src="../lib/MIDI.js/images/backward.png" align="absmiddle" value="stop" ng-click="player.getNextSong(-1);">
+		  			<input type="image" src="../lib/MIDI.js/images/forward.png" align="absmiddle" value="stop" ng-click="player.getNextSong(+1);">
+		  		</div>
+		  		<div class="time-controls pull-left">
+		   			<span id="time1" class="time">0:00</span>
+		   			<span id="capsule">
+		        		<span id="cursor"></span>
+		   			</span>
+		   			<span id="time2" class="time pull-right" style="text-align: left; top: 7px;">-0:00</span>
+		  		</div>
+			</div>
+
+
 			<div>
 				<p>by: {{symphony.composer}}</p>
 			 	<p>Marathon Year: {{symphony.year}}</p>
