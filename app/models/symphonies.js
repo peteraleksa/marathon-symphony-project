@@ -67,7 +67,8 @@ var SymphonySchema = new Schema({
     shares: {
         type: Number,
         default: 0
-    }
+    },
+    midi: String
 });
 
 /**
