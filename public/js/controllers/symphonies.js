@@ -142,7 +142,7 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
     $scope.playSymphony = function() {
         console.log('play symphony called');
         MIDI.loadPlugin({
-        soundfontUrl: "../MIDI.js/soundfont/",
+        soundfontUrl: "../lib/MIDI.js/soundfont/",
         instrument: "acoustic_grand_piano",
         callback: function() {
             var delay = 0; // play one note every quarter second
