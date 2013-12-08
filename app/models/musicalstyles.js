@@ -1,3 +1,4 @@
+var musicalStyles = [
 { 	
 	'name': 'Chromatic',
 	0: 0,
@@ -67,6 +68,7 @@
 	8: 17,
 	9: 19
 }
+];
 
 
 
