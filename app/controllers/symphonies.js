@@ -4,6 +4,7 @@
 var mongoose = require('mongoose'),
     Symphony = mongoose.model('Symphony'),
     User = mongoose.model('User'),
+    Race = mongoose.model('Race'),
     Years = mongoose.model('Years'),
     _ = require('underscore');
 
@@ -22,9 +23,44 @@ exports.symphony = function(req, res, next, id) {
 /**
  * Create a symphony
  */
-exports.create = function(req, res) {
+exports.create = function(req, res, next) {
     var symphony = new Symphony(req.body);
     symphony.user = req.user;
+    
+    var Midi = require('jsmidgen');
+    var fs = require('fs');
+    var btoa = require('btoa');
+    var file = new Midi.File();
+    var track = new Midi.Track();
+
+    file.addTrack(track);
+
+    track.addNote(0, 'c4', 64);
+    track.addNote(0, 'd4', 64);
+    track.addNote(0, 'e4', 64);
+    track.addNote(0, 'f4', 64);
+    track.addNote(0, 'g4', 64);
+    track.addNote(0, 'a4', 64);
+    track.addNote(0, 'b4', 64);
+    track.addNote(0, 'c5', 64);
+
+    track.setInstrument(0, 0x13);
+
+    track.addNoteOn(0, 'c4', 64);
+    track.addNoteOn(0, 'e4');
+    track.addNoteOn(0, 'g4');
+    track.addNoteOff(0, 'c4', 47);
+    track.addNoteOff(0, 'e4');
+    track.addNoteOff(0, 'g4');
+
+    track.addNoteOn(0, 'c4', 1);
+    track.addNoteOn(0, 'e4');
+    track.addNoteOn(0, 'g4');
+    track.addNoteOff(0, 'c4', 384);
+    track.addNoteOff(0, 'e4');
+    track.addNoteOff(0, 'g4');
+
+    symphony.midi = new String('data:audio/midi;base64,' + btoa(file.toBytes()));
 
     symphony.save(function(err) {
         if (err) {
