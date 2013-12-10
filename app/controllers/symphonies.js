@@ -6,7 +6,10 @@ var mongoose = require('mongoose'),
     User = mongoose.model('User'),
     Race = mongoose.model('Race'),
     Years = mongoose.model('Years'),
-    _ = require('underscore');
+    _ = require('underscore'),
+    Midi = require('jsmidgen'),
+    fs = require('fs'),
+    btoa = require('btoa');
 
 /**
  * Find symphony by id
@@ -26,53 +29,76 @@ exports.symphony = function(req, res, next, id) {
 exports.create = function(req, res, next) {
     var symphony = new Symphony(req.body);
     symphony.user = req.user;
-    
-    var Midi = require('jsmidgen');
-    var fs = require('fs');
-    var btoa = require('btoa');
-    var file = new Midi.File();
-    var track = new Midi.Track();
+    Race.findOne({'year': 2013}).exec(function(err, race) {
 
-    file.addTrack(track);
-
-    track.addNote(0, 'c4', 64);
-    track.addNote(0, 'd4', 64);
-    track.addNote(0, 'e4', 64);
-    track.addNote(0, 'f4', 64);
-    track.addNote(0, 'g4', 64);
-    track.addNote(0, 'a4', 64);
-    track.addNote(0, 'b4', 64);
-    track.addNote(0, 'c5', 64);
-
-    track.setInstrument(0, 0x13);
-
-    track.addNoteOn(0, 'c4', 64);
-    track.addNoteOn(0, 'e4');
-    track.addNoteOn(0, 'g4');
-    track.addNoteOff(0, 'c4', 47);
-    track.addNoteOff(0, 'e4');
-    track.addNoteOff(0, 'g4');
-
-    track.addNoteOn(0, 'c4', 1);
-    track.addNoteOn(0, 'e4');
-    track.addNoteOn(0, 'g4');
-    track.addNoteOff(0, 'c4', 384);
-    track.addNoteOff(0, 'e4');
-    track.addNoteOff(0, 'g4');
-
-    symphony.midi = new String('data:audio/midi;base64,' + btoa(file.toBytes()));
-
-    symphony.save(function(err) {
         if (err) {
-            console.log("exports create called - error");
-            return res.send('users/signup', {
-                errors: err.errors,
-                symphony: symphony
+            res.render('error', {
+                status: 500
             });
         } else {
-            console.log("exports create called - ok");
-            res.jsonp(symphony);
+            var file = new Midi.File();
+            var track = new Midi.Track();
+            //var musicalStyles = require('../models/musicalstyles.js');
+            var musicalStyle = {
+                'name': 'Major',
+                'roots': [0, 3, 4, 6],
+                0: 'c4',
+                1: 'd4',
+                2: 'e4',
+                3: 'f4',
+                4: 'g4',
+                5: 'a4',
+                6: 'b4',
+                7: 'c5',
+                8: 'd5',
+                9: 'e5'
+            }
+            var t;
+            var bib;
+            var note;
+            var ts = race.timingStation.toObject();
+
+            file.addTrack(track);
+
+            // for each timing station
+            for (j in ts) {
+                // for each set of data in the timing station
+               for (i in ts[j].data) {
+                    t = ts[j].data[i].time;  // the time runner crossed
+                    bib = ts[j].data[i].bib;   // runners bib #
+                    note = musicalStyle[bib];
+                    // check to see if the bib # is a root note in the musical style
+                    for (k in musicalStyle.roots) {
+                        if(bib == musicalStyle.roots[k]) {
+                            // randomly set lower octave
+                            var octave = 4 - (Math.floor((Math.random()*3)+1));
+                            // cut out the note base
+                            var base = note.substr(0, note.length - 1);
+                            // set note to note base plus new octave
+                            note = base + octave; 
+                        }
+                    }
+                    // add the note to the midi track
+                    track.addNote(0, note, t);
+                }
+            }
+            // add the midi data to the symphony as a base64 encoded string
+            symphony.midi = new String('data:audio/midi;base64,' + btoa(file.toBytes()));
+            // save the symphony and display it
+            symphony.save(function(err) {
+                if (err) {
+                    console.log("exports create called - error");
+                    return res.send('users/signup', {
+                        errors: err.errors,
+                        symphony: symphony
+                    });
+                } else {
+                    console.log("exports create called - ok");
+                    res.jsonp(symphony);
+                }
+            });
         }
+
     });
     
 };

@@ -9,7 +9,7 @@ angular.module('symphonyApp.symphonies').controller('ComposeController', ['$scop
                 timingLocations: {
                     locations: this.markerSelection
                 },
-                melody: {
+                musicalStyle: {
                     melodyType: this.selectedMelodyTypes,
                     notes: []
                 },

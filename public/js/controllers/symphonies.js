@@ -6,7 +6,7 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
     $scope.listSort = '-created';
 
     $scope.player;
-    // MIDI files from Disklavier World
+
     $scope.songid = 0;
 
     $scope.getYears = function() {
@@ -235,9 +235,10 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
                     var percent = data.now / data.end;
                     var now = data.now >> 0; // where we are now
                     var end = data.end >> 0; // end of song
-                    if (now === end) { // go to next song
-                            var id = ++ songid % song.length;
-                            player.loadFile($scope.song[id], player.start); // load MIDI
+                    if (now === end) {
+                        //var id = ++ songid % song.length;
+                        //player.loadFile($scope.song[id], player.start); // load MIDI
+                        //player.stop();
                     }
                     // display the information to the user
                     timeCursor.style.width = (percent * 100) + "%";
