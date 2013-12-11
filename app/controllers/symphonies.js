@@ -29,7 +29,8 @@ exports.symphony = function(req, res, next, id) {
 exports.create = function(req, res, next) {
     var symphony = new Symphony(req.body);
     symphony.user = req.user;
-    Race.findOne({'year': 2013}).exec(function(err, race) {
+    Race.findOne({'year': 2011}).exec(function(err, race) {
+        console.log(race);
 
         if (err) {
             res.render('error', {
@@ -57,6 +58,7 @@ exports.create = function(req, res, next) {
             var bib;
             var note;
             var ts = race.timingStation.toObject();
+            console.log(ts);
 
             file.addTrack(track);
 
@@ -64,8 +66,15 @@ exports.create = function(req, res, next) {
             for (j in ts) {
                 // for each set of data in the timing station
                for (i in ts[j].data) {
-                    t = ts[j].data[i].time;  // the time runner crossed
-                    bib = ts[j].data[i].bib;   // runners bib #
+                    console.log(ts[j].data);
+                    console.log(ts[j].data[i]);
+                    console.log(ts[j].data[i].time);
+                    timearray = ts[j].data[i].time.split(':');
+                    console.log(timearray[0]);
+                    console.log(parseInt(timearray[0]));
+                    t = ((parseInt(timearray[0]) * 60 * 60 * 10) + (parseInt(timearray[1]) * 60 * 10) + (parseInt(timearray[2]) * 10))  / 1000;  // the time runner crossed divided by the speed multiplier
+                    console.log(t);
+                    bib = ts[j].data[i].bib % 10;   // last digit of runners bib #
                     note = musicalStyle[bib];
                     // check to see if the bib # is a root note in the musical style
                     for (k in musicalStyle.roots) {
@@ -186,58 +195,4 @@ exports.favs = function(req, res) {
             res.jsonp(symphonies);
         }
     });
-
-    
 };
-
-/**
- * Favorite a symphony
-
-exports.fav = function(req, res) {
-    var symphony = req.symphony;
-    var user = req.user;
-    if (symphony.user._id != user._id) {
-        for (favorited in symphony.favorites.users) {
-            if (favorited == user._id) {
-                symphony.favorites = _.extend(symphony.favorites, {
-                    num: symphony.favorites.num++,
-                    users: []
-                });
-            }
-        }
-    }
-    symphony.save(function(err) {
-        res.jsonp(symphony);
-    });
-    res.send('exports fav called');
-};
- */
-
-/**
- * Get available years
- ** Do I need this???
-
-
-exports.years = function(req, res, next, id) {
-    Years.load(id, function(err, years) {
-        if (err) return next(err);
-        if (!years) return next(new Error('Failed to load years ' + id));
-        req.years = years;
-        next();
-    });
-};
-
- exports.getYears = function(req, res) {
-    Years.find().sort('year').populate('year', 'year').exec(function(err, years) {
-        if (err) {
-            res.render('error', {
-                status: 500
-            });
-        } else {
-            res.jsonp(years);
-        }
-    });
- };
-
- */
-

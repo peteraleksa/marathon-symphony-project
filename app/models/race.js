@@ -13,7 +13,7 @@ var RaceSchema = new Schema({
 	timingStation: [{
 		location: String,
 		data: [{
-			time: Number,
+			time: String,
 			bib: Number
 		}]
 	}]

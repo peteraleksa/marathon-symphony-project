@@ -28,7 +28,8 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
                     melodyType: this.selectedMelodyTypes,
                     notes: []
                 },
-                user: this.user
+                user: this.user,
+                speed: this.speed
             }
         );
 
