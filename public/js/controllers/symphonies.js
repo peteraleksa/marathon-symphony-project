@@ -25,11 +25,11 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
                     locations: this.markerSelection
                 },
                 melody: {
-                    melodyType: this.selectedMelodyTypes,
+                    melodyType: this.selectedMelodyTypes.value,
                     notes: []
                 },
                 user: this.user,
-                speed: this.speed
+                speed: this.speed.value
             }
         );
 
@@ -228,10 +228,10 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
                     if (seconds.length == 1) seconds = "0" + seconds;
                     return minutes + ":" + seconds;
             };
-            player.getNextSong = function(n) {
-                    var id = Math.abs(($scope.songid += n) % $scope.song.length);
-                    player.loadFile($scope.song[id], player.start); // load MIDI
-            };
+            //player.getNextSong = function(n) {
+            //        var id = Math.abs(($scope.songid += n) % $scope.song.length);
+            //        player.loadFile($scope.song[id], player.start); // load MIDI
+            //};
             $scope.player.setAnimation(function(data, element) {
                     var percent = data.now / data.end;
                     var now = data.now >> 0; // where we are now
@@ -277,7 +277,7 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
     // Runner Range Select Part
 
     //Year Select
-    $scope.yearOptions = [ {"value":"2013"}, {"value":"2011"}, {"value":"2010"}];
+    $scope.yearOptions = [ {"value":"2011"} ];
     //$scope.yearOptions = $scope.getYears();
     $scope.year = $scope.yearOptions[0];
 
@@ -306,8 +306,8 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
     // Location Select part
 
     // Location High Level Select
-    $scope.locations = [ {"value":"Start", "id": 5 }, {"value":"Finish", "id": 4 }, {"value":"Odd Miles", "id": 3 }, {"value":"Even Miles", "id": 2 }, {"value":"All", "id": 1 }, {"value":"Custom", "id": 0} ];
-    $scope.selectedLocations = $scope.locations[$scope.locations.length - 2];
+    $scope.locations = [ {"value":"Finish", "id": 0 } ];
+    $scope.selectedLocations = $scope.locations[$scope.locations.length - 1];
 
     // Custom Options
     $scope.markers = ['Start', 'Mile 1', 'Mile 2', 'Mile 3', 'Mile 4', 'Mile 5', 'Mile 6', 'Mile 7', 'Mile 8', 'Mile 9', 'Mile 10', 'Mile 11', 'Mile 12', 'Mile 13', 'Mile 14', 'Mile 15', 'Mile 16', 'Mile 17', 'Mile 18', 'Mile 19', 'Mile 20', 'Mile 21', 'Mile 22', 'Mile 23', 'Mile 24', 'Mile 25', 'Mile 26', 'Finish'];
@@ -327,18 +327,19 @@ angular.module('symphonyApp.symphonies').controller('SymphonyController', ['$sco
     };
 
     // Speed Select
-    $scope.speed = 100;
+    $scope.speedoptions = [{"value": 1, "id": 0}, {"value": 10, "id": 1}, {"value": 100, "id": 2}, {"value": 1000, "id": 3}];
+    $scope.speed = $scope.speedoptions[$scope.speedoptions.length - 2];
 
     // Instrument High Level Select
-    $scope.instrumentTypes = [ {"value":"Default", "id": 1 }, {"value":"Custom", "id": 0} ];
-    $scope.selectedInstrumentTypes = $scope.instrumentTypes[$scope.instrumentTypes.length - 2];
+    $scope.instrumentTypes = [ {"value":"Default", "id": 0 } ] // , {"value":"Custom", "id": 1} ];
+    $scope.selectedInstrumentTypes = $scope.instrumentTypes[0];
 
     // Custom Options
     $scope.instruments = [ {"name":'Violin', "id": 0}, {"name":'Guitar', "id": 1}, {"name":'Harp', "id": 2}, {"name":'Trumpet', "id": 3}, {"name":'Timpani', "id": 4}, {"name":'Piano', "id": 5} ];
     $scope.selectedInstrument = $scope.instruments[5];
 
     // Melody High Level Select
-    $scope.melodyTypes = [ {"value":"Harmonic", "id": 2 }, {"value":"Dissonant", "id": 1}, {"value":"Custom", "id":0} ];
+    $scope.melodyTypes = [ {"value":"Major", "id": 2 }, {"value":"Minor", "id": 1}, {"value":"Chromatic", "id":0} ];
     $scope.selectedMelodyTypes = $scope.melodyTypes[0];
 
     // Custom Options

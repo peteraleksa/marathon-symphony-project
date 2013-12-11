@@ -5,27 +5,40 @@
 			<div class="row-fluid">
 				<span>{{symphony.created | date:'medium'}}</span> /
 				<span>{{symphony.user.name}}</span>
+			</div>
+			<div class="row-fluid">
+				<div class="span5 pull-left">
 				<header>
-				<h2>{{symphony.title}}</h2>
-						<button 
-							ng-disabled="!global.authenticated"
-				   			ng-mouseover="signInToSubmit()"
-                            type="button" 
-                            class="btn btn-primary" 
-                            ng-model="favorited"
-                            ng-click="toggleFav()"
-                            >
-                            &#9829 <!--heart glyph-->
-						</button> {{symphony.favorites.num}} Favorites
+					<h2>{{symphony.title}}</h2>
+				</header>
+				</div>
 				
+			</div>
+			<div class="row-fluid">
+				<div>
+					Year: {{symphony.year}}<br/>
+					Melody Type: {{symphony.melody.melodyType}}<br/>
+					Speed: {{symphony.speed}}x<br/>
+
+				</div>
+			</div>
+			<div class="row-fluid">
+				<button 
+					ng-disabled="!global.authenticated"
+		   			ng-mouseover="signInToSubmit()"
+                    type="button" 
+                    class="btn btn-primary" 
+                    ng-model="favorited"
+                    ng-click="toggleFav()"
+                    >
+                    &#9829 <!--heart glyph-->
+				</button> {{symphony.favorites.num}}
 			</div>
 
 			<div class="player" style="height: 42px; box-shadow: 0 -1px #000; margin-bottom: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0;">
 				<div style="margin: 0 auto; width: 160px; float: right;">
 		  			<input type="image" src="../lib/MIDI.js/images/pause.png" align="absmiddle" value="pause" ng-click="pausePlayStop()" id="pausePlayStop">
 		  			<input type="image" src="../lib/MIDI.js/images/stop.png" align="absmiddle" value="stop" ng-click="pausePlayStop(true)">
-		  			<input type="image" src="../lib/MIDI.js/images/backward.png" align="absmiddle" value="stop" ng-click="player.getNextSong(-1);">
-		  			<input type="image" src="../lib/MIDI.js/images/forward.png" align="absmiddle" value="stop" ng-click="player.getNextSong(+1);">
 		  		</div>
 		  		<div class="time-controls pull-left">
 		   			<span id="time1" class="time">0:00</span>
@@ -37,7 +50,9 @@
 			</div>
 
 			<div id="title">Loading API...</div>
+
 			
+
 		</div>
 	</div>
 </section>

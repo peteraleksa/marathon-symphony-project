@@ -51,3 +51,9 @@ form h1 {
 .symphonybody {
   color: black;
 }
+.player {
+    margin-top: 15px;
+}
+.well {
+    margin-top: 10px;
+}

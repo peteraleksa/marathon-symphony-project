@@ -2,17 +2,25 @@
 		 data-ng-init="find()">
 <div class="container-fluid">
     <div class="row-fluid">
-        <header class="span5 offset2" 
+        <header class="span8 offset2" 
                 data-ng-show="symphonies || symphonies.length > 0">
-                <h1>Listen to a symphony:</h1>
+                <h1>Symphonies:</h1>
         </header>
     </div>
     <div class="row-fluid">
-        <div class="btn-group span5 pull-right">
+        <div class="span5 offset2 pull-left" 
+             data-ng-show="symphonies 
+                || symphonies.length > 0">
+                Search by Title: 
+                <input ng-model="query" 
+                       value="">
+                </input>
+        </div>
+        <div class="btn-group span4 offset1 pull-right">
             <button type="button" 
                     class="btn btn-primary" 
                     ng-model="listSort"
-                    btn-radio="'-favorites.num'">
+                    btn-radio="'-favorites'">
                     Favorite
             </button>
             <button type="button" 
@@ -21,14 +29,6 @@
                     btn-radio="'-created'">
                     Newest
             </button>
-        </div>
-        <div class="span6 offset2 pull-left" 
-             data-ng-show="symphonies 
-                || symphonies.length > 0">
-                Search by Title: 
-                <input ng-model="query" 
-                       value="">
-                </input>
         </div>
         <div class="well span8 offset2">
             <ul class="symphonies unstyled">
