@@ -51,7 +51,16 @@
 
 			<div id="title">Loading API...</div>
 
-			
+			<div>
+				<p>Favorited By:
+			 		<ul class="userfavs unstyled">
+                		<li data-ng-repeat=
+                        	"userfavs in symphony.favorites.users">{{userfavs.name}}
+                		</li>
+                	</ul>
+                </p>
+
+			</div>
 
 		</div>
 	</div>
