@@ -4,19 +4,30 @@
 
     /welcome
       the welcome page
-      uses the WelcomeCtrl controller
+      uses the WelcomeController controller
 
-    /compose
+    /symphonies/compose
       the page for choosing composition options
-      uses the ComposeCtrl controller
+      uses the SymphonyController controller
 
-    /symphonies
+    /symphonies/list
       shows the list of all symphonies 
-      uses the SymphonyListCtrl controller
+      uses the SymphonyController controller
+
+    /symphonies/users/:userId where userId is the id of the current user
+      shows the list of all symphonies belonging to user
+      uses the SymphonyController controller
+
+    /symphonies/users/:userId where userId is the id of the current user
+      shows the list of all symphonies favorited by the user
+      uses the SymphonyController controller
+
+    /about
+      the about page
 
     /symphonies/:symphonyId where symphonyId is the id of the symphony object to view 
       shows the symphony detail viewd
-      uses the SymphonyDetailCtrl controller
+      uses the SymphonyController controller
 
     default view is /welcome
 

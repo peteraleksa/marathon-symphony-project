@@ -1,7 +1,6 @@
 /**
- * Module dependencies.
- */
-
+* Attempted to make some tests, but they are incomplete
+*/
 
 /**
 * Module dependencies.
